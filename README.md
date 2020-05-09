@@ -1,5 +1,7 @@
 # Face Annotation Tool
 
+<img src="https://github.com/larryschirmer/opencv_gui_face_crop/raw/master/preview.png" alt="preview" width="600"/>
+
 ## Create a bounding box around a face present in the image and save the cropped face automatically
 
 Opens the image named `dog.jpg` in a new OpenCV window and saves the selected region to the directory. Select the top left region and drag to the bottom right to select.
@@ -33,6 +35,8 @@ The root file for this project is `submission.py`. From the command line on a sy
 ```bash
 python submission.py
 ```
+
+## Source
 
 image source:
 dog.jpg - https://www.piqsels.com/en/public-domain-photo-ovxve
