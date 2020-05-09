@@ -68,8 +68,6 @@ def handleMouse(action, x, y, flags, userdata):
         top_left_rect_corner = (None, None)
 
 
-# Setup
-
 # Create a named Window
 cv2.namedWindow("Select a new Region of Interest")
 # Bind Mouse Callback
