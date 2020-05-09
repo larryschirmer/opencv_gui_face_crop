@@ -1,4 +1,5 @@
 import cv2
+import time
 
 # global variables
 original_image = cv2.imread("dog.jpg")
@@ -26,6 +27,24 @@ def resetImage():
     display_image = original_image.copy()
 
 
+def getCropedSection(coordinates):
+    # coordinates - tuple containing ( <top_left_rect_corner>, <bottom_right_rect_corner> )
+    height_start = coordinates[0][1]  # top left y coordinate
+    height_end = coordinates[1][1]  # bottom right y coordinate
+    width_start = coordinates[0][0]  # top left x coordinate
+    width_end = coordinates[1][0]  # bottom right x coordinate
+    cropped_image = original_image[height_start:height_end,
+                                   width_start:width_end]
+
+    return cropped_image
+
+
+def saveImage(image, file_path):
+    epoch_millis = int(time.time() * 1000)
+    formatted_file_name = "{}_{}.jpg".format(file_path, epoch_millis)
+    cv2.imwrite(formatted_file_name, image)
+
+
 def handleMouse(action, x, y, flags, userdata):
     global isSelectingRoi, top_left_rect_corner
 
@@ -40,9 +59,11 @@ def handleMouse(action, x, y, flags, userdata):
     if action == cv2.EVENT_MOUSEMOVE and isSelectingRoi == True:
         renderRect((top_left_rect_corner, (x, y)))
 
-    # stop drawing rect
     # save selected region
+    # stop drawing rect
     if action == cv2.EVENT_LBUTTONUP:
+        cropped_image = getCropedSection((top_left_rect_corner, (x, y)))
+        saveImage(cropped_image, 'crop')
         isSelectingRoi = False
         top_left_rect_corner = (None, None)
 
